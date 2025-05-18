@@ -16,14 +16,14 @@ var mapper map[string]string
 
 func init() {
 	var err error
-	db, err = sql.Open("sqlite3", "../database/alchemy.db")
+	db, err = sql.Open("sqlite3", "database/alchemy.db")
 	if err != nil {
 		log.Fatalf("Gagal membuka database: %v", err)
 	} else {
 		log.Printf("Database ditemukan")
 	}
 
-	file, err := os.Open("../database/mapper2.json")
+	file, err := os.Open("database/mapper2.json")
 	if err != nil {
 		log.Fatalf("Gagal membuka mapper.json: %v", err)
 	}

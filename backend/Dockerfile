@@ -9,6 +9,9 @@ COPY go.mod go.sum ./
 # Download all dependencies
 RUN go mod download
 
+# Install gcc dan musl-dev untuk build go-sqlite3
+RUN apk add --no-cache gcc musl-dev
+
 # Copy source code
 COPY . .
 
