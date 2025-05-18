@@ -1,4 +1,3 @@
-// RecipeResults.jsx with improved responsiveness
 import React from "react";
 
 export default function RecipeResults({

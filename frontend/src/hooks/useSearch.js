@@ -39,9 +39,7 @@ export function useSearch() {
       if (searchParams.algorithm === "Bidirectional" && elements.length > 1) {
         requestBody.targetName = elements[1].name;
       }
-
-      // Kirim request ke backend (pastikan port dan endpoint sudah benar)
-      const response = await fetch("/api/search", {
+  const response = await fetch("/api/search",{
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify(requestBody),

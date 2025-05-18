@@ -4,13 +4,15 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Copy package.json and package-lock.json
-COPY package*.json ./
+COPY frontend/package*.json ./
 
 # Install dependencies
 RUN npm install
 
 # Copy the rest of the application
-COPY . .
+COPY frontend/. .
+# Copy mapper2.json dari database ke public agar bisa diakses frontend
+COPY database/mapper2.json ./public/mapper2.json
 
 # Build the application
 RUN npm run build
@@ -22,7 +24,7 @@ FROM nginx:alpine
 COPY --from=0 /app/dist /usr/share/nginx/html
 
 # Copy nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY frontend/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose port 80
 EXPOSE 80

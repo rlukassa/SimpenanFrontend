@@ -1,8 +1,8 @@
+import React from "react";
 // src/components/ElementPicker.jsx
 "use client";
 
 import { useState, useEffect } from "react";
-import mapper from "../../../database/mapper2.json";
 
 export default function ElementPicker({ algorithm, onElementSelect }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -11,6 +11,13 @@ export default function ElementPicker({ algorithm, onElementSelect }) {
   const [currentPage, setCurrentPage] = useState(1);
   const elementsPerPage = 8;
   const [totalPages, setTotalPages] = useState(1);
+  const [mapper, setMapper] = useState({});
+
+  useEffect(() => {
+    fetch("/mapper2.json")
+      .then((res) => res.json())
+      .then(setMapper);
+  }, []);
 
   useEffect(() => {
     const allElements = Object.keys(mapper).map((key) => ({
@@ -19,7 +26,7 @@ export default function ElementPicker({ algorithm, onElementSelect }) {
     }));
     setFilteredElements(allElements);
     setTotalPages(Math.ceil(allElements.length / elementsPerPage));
-  }, []);
+  }, [mapper]);
 
   useEffect(() => {
     const allElements = Object.keys(mapper).map((key) => ({
@@ -32,7 +39,7 @@ export default function ElementPicker({ algorithm, onElementSelect }) {
     setFilteredElements(filtered);
     setTotalPages(Math.ceil(filtered.length / elementsPerPage));
     setCurrentPage(1);
-  }, [searchTerm]);
+  }, [searchTerm, mapper]);
 
   const handleElementClick = (element) => {
     let newSelectedElements;

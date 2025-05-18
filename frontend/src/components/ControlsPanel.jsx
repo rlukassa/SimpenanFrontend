@@ -1,6 +1,7 @@
 // src/components/ControlsPanel.jsx
 "use client";
 
+import React from "react";
 import { useState } from "react";
 
 export default function ControlsPanel({ searchParams, setSearchParams }) {

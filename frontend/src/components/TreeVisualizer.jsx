@@ -1,4 +1,3 @@
-// TreeVisualizer.jsx with improved responsiveness
 import React from "react";
 import { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";

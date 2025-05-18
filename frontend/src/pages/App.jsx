@@ -1,6 +1,3 @@
-// src/pages/App.jsx
-"use client";
-
 import React, { useEffect, useState, useMemo } from "react";
 import ElementPicker from "../components/ElementPicker";
 import ControlsPanel from "../components/ControlsPanel";
@@ -10,12 +7,20 @@ import { useSearch } from "../hooks/useSearch";
 import testTubeIcon from "../assets/test-tube.png";
 import "../../public/App.css";
 import "../assets/background.css";
-import mapper from "../../../database/mapper2.json";
 
 function App() {
   const [currentView, setCurrentView] = useState("landing");
   const [selectedElements, setSelectedElements] = useState([]);
-  const [liveTreeData, setLiveTreeData] = useState([]);  const {
+  const [liveTreeData, setLiveTreeData] = useState([]);
+  const [mapper, setMapper] = useState({});
+
+  useEffect(() => {
+    fetch("/mapper2.json")
+      .then((res) => res.json())
+      .then(setMapper);
+  }, []);
+
+  const {
     searchParams,
     setSearchParams,
     searchResults,
@@ -40,7 +45,7 @@ const processedResults = useMemo(() => {
       icon: mapper[child.name] || "", // Tambahkan icon untuk setiap child
     })),
   }));
-}, [searchResults]);
+}, [searchResults, mapper]);
 
   // Efek untuk melakukan animasi "live update" pada visualisasi pohon.
 // Setiap 100ms, satu node dari processedResults akan ditambahkan ke liveTreeData,
