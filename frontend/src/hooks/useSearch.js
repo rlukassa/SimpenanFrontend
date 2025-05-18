@@ -39,7 +39,7 @@ export function useSearch() {
       if (searchParams.algorithm === "Bidirectional" && elements.length > 1) {
         requestBody.targetName = elements[1].name;
       }
-  const response = await fetch("/api/search",{
+  fetch(`${import.meta.env.VITE_API_BASE_URL}/api/search`,{
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify(requestBody),
