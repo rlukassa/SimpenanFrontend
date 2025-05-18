@@ -39,11 +39,14 @@ export function useSearch() {
       if (searchParams.algorithm === "Bidirectional" && elements.length > 1) {
         requestBody.targetName = elements[1].name;
       }
-  fetch(`${import.meta.env.VITE_API_BASE_URL}/api/search`,{
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(requestBody),
-});
+  const response = await fetch(
+  `${import.meta.env.VITE_API_BASE_URL}/api/search`,
+  {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(requestBody),
+  }
+);
 
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       const data = await response.json();      // Simpan hasil pencarian ke state
